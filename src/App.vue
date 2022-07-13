@@ -8,8 +8,11 @@
       <span>Create app VueJS</span>
     </div>
   </div>
-  <input type="text">
-  <button>+</button>
+  <div class='add-task'>
+    <input type="text" placeholder='Type your task'>
+    <button>+</button>
+  </div>
+
 </template>
 
 <script>
@@ -20,8 +23,18 @@
 
 export default {
   name: 'App',
-  components: {
+  data() {
+    return {
+      tasks: [
+        {
+          _id: 'ksefklk3f2331f',
+          name: 'Create todo app',
+          isCompleted: false,
+          type: 'business'
+        }
 
+      ]
+    }
   }
 }
 </script>
