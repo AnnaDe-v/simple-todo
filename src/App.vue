@@ -1,7 +1,7 @@
 <template>
   <h4>My tasks</h4>
   <div class="tasks">
-    <div class='task completed'>
+    <div class='task' v-for="task in tasks" :key="task._id">
       <div class="round checked">
         <div class="checkbox"></div>
       </div>
