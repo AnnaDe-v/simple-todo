@@ -124,9 +124,9 @@ button {
 .add-task {
     display: flex;
     bottom: 20px;
-    position: fixed;
+    /* position: fixed; */
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 80%;
     margin: 100px auto 0;
 }

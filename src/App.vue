@@ -2,71 +2,90 @@
   <h4>My tasks</h4>
   <div class="tasks">
     <div
-        class='task'
-        :class='{completed: task.isCompleted}'
-        v-for="task in tasks"
-        :key="task._id">
-
+      class="task"
+      :class="{ completed: task.isCompleted }"
+      v-for="task in tasks"
+      :key="task._id"
+      @click="completedHandler(task._id)"
+    >
       <div
-          class='round'
-          :class="{
-            business: task.type === 'business',
-            personal: task.type === 'personal',
-                  }"
+        class="round"
+        :class="{
+          business: task.type === 'business',
+          personal: task.type === 'personal',
+        }"
       ></div>
       <span>{{ task.name }}</span>
-
     </div>
   </div>
-  <div class='add-task'>
-    <input type="text" placeholder='Type your task'>
-    <button>+</button>
+  <div class="add-task">
+    <input type="text" placeholder="Type your task" v-model='taskName'/>
+    <button @click="addTask">+</button>
   </div>
-
 </template>
 
-<script>
 
+
+<script>
+import { uuid } from 'vue3-uuid';
 
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
+      taskName: '',
       tasks: [
         {
-          _id: 'ksefklk3f2331f',
-          name: 'Create todo app',
+          _id: uuid.v4(),
+          name: "Create todo app",
           isCompleted: true,
-          type: 'personal'
+          type: "personal",
         },
         {
-          _id: 'ksefkl43tk3f2331f',
-          name: 'Create messenger',
+          _id: uuid.v4(),
+          name: "Create messenger",
           isCompleted: false,
-          type: 'business'
+          type: "business",
         },
         {
-          _id: '3fklk3f2331f',
-          name: 'To do tests',
+          _id: uuid.v4(),
+          name: "To do tests",
           isCompleted: true,
-          type: 'business'
+          type: "business",
         },
         {
-          _id: '657efklk3f2331f',
-          name: 'Auth',
+          _id: uuid.v4(),
+          name: "Auth",
           isCompleted: false,
-          type: 'business'
+          type: "business",
         },
         {
-          _id: 'ksefklk3f237631f',
-          name: 'Styles',
+          _id: uuid.v4(),
+          name: "Styles",
           isCompleted: true,
-          type: 'business'
+          type: "business",
         },
-      ]
+      ],
+    };
+  },
+  methods: {
+    completedHandler: function (taskId) {
+      this.tasks.map((t) =>
+        t._id === taskId ? (t.isCompleted = !t.isCompleted) : t
+      );
+    },
+    addTask: function () {
+        console.log(this.taskName)
+        const newTask = {
+          _id: uuid.v4(),
+          name: this.taskName,
+          isCompleted: false,
+          type: "personal",
+        }
+        this.tasks.push(newTask)
     }
-  }
-}
+  },
+};
 </script>
 
 <style>
