@@ -1,41 +1,57 @@
 <template>
-  <h4>My tasks</h4>
-  <div class="tasks">
-    <div
-      class="task"
-      :class="{ completed: task.isCompleted }"
-      v-for="task in tasks"
-      :key="task._id"
-      @click="completedHandler(task._id)"
-    >
+  <div class="container">
+    <h4>My tasks</h4>
+    <div class="wrapper-stat">
+      <div class="stat">
+        <h5>Business</h5>
+        <div class="wrapper-progress">
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="stat">
+        <h5>Personal</h5>
+        <div class="wrapper-progress">
+          <div class="bar"></div>
+        </div>
+      </div>
+    </div>
+    <div class="tasks">
       <div
-        class="round"
-        :class="{
+          class="task"
+          :class="{ completed: task.isCompleted }"
+          v-for="task in tasks"
+          :key="task._id"
+          @click="completedHandler(task._id)"
+      >
+        <div
+            class="round"
+            :class="{
           business: task.type === 'business',
           personal: task.type === 'personal',
         }"
-      ></div>
-      <span>{{ task.name }}</span>
-      <div class="delete-task" @click="removeTask(task._id)">
-        <img src="../src/assets/trash.png" alt="">
+        ></div>
+        <span>{{ task.name }}</span>
+        <div class="delete-task" @click="removeTask(task._id)">
+          <img src="../src/assets/trash.png" alt="">
+        </div>
       </div>
     </div>
+    <div class="add-task">
+      <input
+          type="text"
+          placeholder="Type your task"
+          v-model='taskName'
+          v-on:keyup.enter="addTask"
+      />
+      <button @click="addTask">+</button>
+    </div>
   </div>
-  <div class="add-task">
-    <input
-        type="text"
-        placeholder="Type your task"
-        v-model='taskName'
-        v-on:keyup.enter="addTask"
-    />
-    <button @click="addTask">+</button>
-  </div>
+
 </template>
 
 
-
 <script>
-import { uuid } from 'vue3-uuid';
+import {uuid} from 'vue3-uuid';
 
 export default {
   name: "App",
@@ -79,18 +95,18 @@ export default {
   methods: {
     completedHandler: function (taskId) {
       this.tasks.map((t) =>
-        t._id === taskId ? (t.isCompleted = !t.isCompleted) : t
+          t._id === taskId ? (t.isCompleted = !t.isCompleted) : t
       );
     },
     addTask: function () {
-        const newTask = {
-          _id: uuid.v4(),
-          name: this.taskName,
-          isCompleted: false,
-          type: "personal",
-        }
-        this.tasks.push(newTask)
-        this.taskName = ''
+      const newTask = {
+        _id: uuid.v4(),
+        name: this.taskName,
+        isCompleted: false,
+        type: "personal",
+      }
+      this.tasks.push(newTask)
+      this.taskName = ''
     },
     removeTask: function (taskId) {
       this.tasks = this.tasks.filter(t => t._id !== taskId)
