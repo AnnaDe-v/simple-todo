@@ -16,10 +16,18 @@
         }"
       ></div>
       <span>{{ task.name }}</span>
+      <div class="delete-task" @click="removeTask(task._id)">
+        <img src="../src/assets/trash.png" alt="">
+      </div>
     </div>
   </div>
   <div class="add-task">
-    <input type="text" placeholder="Type your task" v-model='taskName'/>
+    <input
+        type="text"
+        placeholder="Type your task"
+        v-model='taskName'
+        v-on:keyup.enter="addTask"
+    />
     <button @click="addTask">+</button>
   </div>
 </template>
@@ -75,7 +83,6 @@ export default {
       );
     },
     addTask: function () {
-        console.log(this.taskName)
         const newTask = {
           _id: uuid.v4(),
           name: this.taskName,
@@ -83,6 +90,10 @@ export default {
           type: "personal",
         }
         this.tasks.push(newTask)
+        this.taskName = ''
+    },
+    removeTask: function (taskId) {
+      this.tasks = this.tasks.filter(t => t._id !== taskId)
     }
   },
 };

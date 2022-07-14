@@ -66,12 +66,13 @@ h4 {
 .task {
     display: flex;
     margin: 10px auto;
-    width: 90%;
+    width: 80%;
     background-color: rgba(255, 255, 255, .5);
     border-radius: 30px;
     padding: 10px;
     align-items: center;
     cursor: pointer;
+    position: relative;
 }
 
 .task>span {
@@ -124,9 +125,29 @@ button {
 .add-task {
     display: flex;
     bottom: 20px;
-    /* position: fixed; */
     align-items: center;
     justify-content: center;
     width: 80%;
     margin: 100px auto 0;
+}
+
+.delete-task {
+    position: absolute;
+    cursor: pointer;
+    height: 23px;
+    width: 23px;
+    left: 92%;
+    top: 28%;
+    align-items: center;
+    opacity: 0.4;
+    transition: opacity 0.4s ease;
+}
+
+.delete-task>img {
+    width: 20px;
+    height: 20px;
+}
+
+.delete-task:hover {
+    opacity: 1;
 }
