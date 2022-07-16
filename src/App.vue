@@ -5,13 +5,13 @@
       <div class="stat">
         <h5>Business</h5>
         <div class="wrapper-progress">
-          <div class="bar"></div>
+          <div class="bar" :style='{width: `${statistic.business}`}'></div>
         </div>
       </div>
       <div class="stat">
         <h5>Personal</h5>
         <div class="wrapper-progress">
-          <div class="bar"></div>
+          <div class="bar personal" :style='{width: `${statistic.personal}`}'></div>
         </div>
       </div>
     </div>
@@ -112,6 +112,18 @@ export default {
       this.tasks = this.tasks.filter(t => t._id !== taskId)
     }
   },
+  computed: {
+
+    statistic: function() {
+      const count = this.tasks.length || 1
+      const businessData = this.tasks.filter(t => t.type === 'business')
+      const personalData = this.tasks.filter(t => t.type === 'personal')
+      return {
+        business: Math.round((businessData.length * 100) / count) + '%',
+        personal: Math.round((personalData.length * 100) / count) + '%',
+      }
+    }
+  }
 };
 </script>
 
